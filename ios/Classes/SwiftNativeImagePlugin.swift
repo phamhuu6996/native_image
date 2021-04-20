@@ -9,7 +9,7 @@ public class SwiftNativeImagePlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    DispatchQueue.global(qos: .userInitiated).async {
+    DispatchQueue.global(qos: .background).async {
         let arg = call.arguments as? [String:Any] ?? ["path":""]
         let pathModify: String = self.getAttribute(arg: arg)
         DispatchQueue.main.async {

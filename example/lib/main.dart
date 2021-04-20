@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     String pathModify;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      var response = await http.get('https://i.pinimg.com/736x/78/90/e1/7890e13d8985d3a5360e3e62831575fd.jpg');
+      var response = await http.get('https://img.17qq.com/images/gqqwgqwsqky.jpeg');
       final documentDirectory = await getApplicationDocumentsDirectory();
 
       final file = File(documentDirectory.path +'/imagetest.png');
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Container(
-          child:_platformVersion!=null?Image.file(File(_platformVersion), width: 1000):Container(child: Text("Loadding"),))
+          child:_platformVersion!=null?Image.file(File(_platformVersion), width: 1000):CircularProgressIndicator())
       ),
     );
   }
