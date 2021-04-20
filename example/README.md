@@ -1,4 +1,4 @@
-# native_image_example
+ clean# native_image_example
 
 Demonstrates how to use the native_image plugin.
 

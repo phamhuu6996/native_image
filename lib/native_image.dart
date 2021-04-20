@@ -37,6 +37,11 @@ class NativeImage {
     if (memory == null) return null;
     return null;
   }
+
+   Future<String>  editImage(String label, int size) async {
+     if (path == null) return null;
+     return runFile(editImageMethod, {'result': [], 'path': path, "label":label, "size":size});
+  }
 }
 
 abstract class Option {

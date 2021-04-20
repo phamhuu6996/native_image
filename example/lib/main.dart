@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:native_image/native_image.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,22 +18,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _platformVersion;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    initEditImage();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
+  Future<void> initEditImage() async {
+    String pathModify;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await NativeImage.platformVersion;
+      var response = await http.get('https://i.pinimg.com/736x/78/90/e1/7890e13d8985d3a5360e3e62831575fd.jpg');
+      final documentDirectory = await getApplicationDocumentsDirectory();
+
+      final file = File(documentDirectory.path +'/imagetest.png');
+
+       file.writeAsBytesSync(response.bodyBytes);
+
+      pathModify =await NativeImage(path: file.path).editImage("pham van hữu \n tôi la ai \n anncn\n jks", 30);
+      imageCache.evict(FileImage(File(pathModify)));
+
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      pathModify = 'Failed to get platform version.';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -38,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _platformVersion = pathModify;
     });
   }
 
@@ -49,9 +62,8 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        body: Container(
+          child:_platformVersion!=null?Image.file(File(_platformVersion), width: 1000):Container(child: Text("Loadding"),))
       ),
     );
   }
