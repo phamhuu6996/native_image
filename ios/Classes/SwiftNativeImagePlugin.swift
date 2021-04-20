@@ -9,8 +9,16 @@ public class SwiftNativeImagePlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    DispatchQueue.global(qos: .userInitiated).async {
+        let arg = call.arguments as? [String:Any] ?? ["path":""]
+        let pathModify: String = self.getAttribute(arg: arg)
+        DispatchQueue.main.async {
+            result(pathModify)
+        }
+    }
     let arg = call.arguments as? [String:Any] ?? ["path":""]
-    result(getAttribute(arg: arg))
+    let pathModify: String = getAttribute(arg: arg)
+    result(pathModify)
   }
     
     public func getAttribute(arg: [String:Any])-> String{
@@ -24,8 +32,8 @@ public class SwiftNativeImagePlugin: NSObject, FlutterPlugin {
         let textFont = UIFont(name: "Helvetica Bold", size: CGFloat(size))!
         let shadow : NSShadow = NSShadow()
         shadow.shadowColor = UIColor.black
-        shadow.shadowBlurRadius = 3
-        shadow.shadowOffset = CGSize(width: 3, height: 3)
+        shadow.shadowBlurRadius = 1
+        shadow.shadowOffset = CGSize(width: 2, height: 2)
         let textFontAttributes = [
             NSAttributedString.Key.font: textFont,
             NSAttributedString.Key.paragraphStyle:text_style,
