@@ -4,11 +4,16 @@ class AddTextHandler:HandlerImp{
     internal init(text: Text) {
         self.text = text
     }
-    public func getAttribute(path:String, label:String, text:Text, image: UIImage)-> UIImage{
+    
+    override func runByte(image: UIImage) -> UIImage {
+        return self.getAttribute( text: self.text, image: image)
+    }
+    
+    public func getAttribute(text:Text, image: UIImage)-> UIImage{
         
         let textStyle=NSMutableParagraphStyle()
         textStyle.alignment=text.textAlign
-        let textColor = UIColor.init(ciColor: CIColor.init(string: text.colorText))
+        let textColor = UIColor(rgb: text.colorText)
         let textFont = UIFont(name: "Helvetica Bold", size: CGFloat(text.sizeText))!
         let shadow : NSShadow = NSShadow()
         shadow.shadowColor = UIColor.black
@@ -21,11 +26,11 @@ class AddTextHandler:HandlerImp{
             NSAttributedString.Key.shadow:shadow
             ] as [NSAttributedString.Key : Any]
         let point = CGPoint(x: CGFloat(text.horPadding) , y:CGFloat(text.verPadding) )
-        let newImage = textToImage(text: label, image: image, point: point, path: path, attribute: textFontAttributes)
+        let newImage = textToImage(text: text.label, image: image, point: point, attribute: textFontAttributes)
         return newImage
     }
     
-    public func textToImage(text: String, image: UIImage, point: CGPoint, path:String, attribute: [NSAttributedString.Key : Any]) -> UIImage {
+    public func textToImage(text: String, image: UIImage, point: CGPoint, attribute: [NSAttributedString.Key : Any]) -> UIImage {
 
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)

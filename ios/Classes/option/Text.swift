@@ -1,7 +1,7 @@
 
 import Foundation
 class Text: Option{
-    public init(label: String, sizeText: Int, textAlign: NSTextAlignment, garvity: Int, colorText: String, horPadding: Int, verPadding: Int) {
+    public init(label: String, sizeText: Int, textAlign: NSTextAlignment, garvity: Int, colorText: Int, horPadding: Int, verPadding: Int) {
         self.label = label
         self.sizeText = sizeText
         self.textAlign = textAlign
@@ -15,7 +15,7 @@ class Text: Option{
     var sizeText: Int
     var textAlign: NSTextAlignment
     var garvity: Int
-    var colorText: String
+    var colorText: Int
     var horPadding:Int
     var verPadding:Int
     

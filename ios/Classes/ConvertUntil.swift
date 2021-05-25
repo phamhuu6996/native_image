@@ -28,9 +28,9 @@ class ConvertUntil{
     private func convertToText(value:[String:Any]) ->Text{
         let label:String = value["label"] as? String ?? ""
         let size:Int = value["size"] as? Int ?? Text.size
-        let textAlign:NSTextAlignment  = Text.setAlignText(align: value["text_align"] as? Int ?? Text.left)
+        let textAlign:NSTextAlignment  = Text.setAlignText(align: value["text_align"] as? Int ?? Text.right)
         let gravity:Int = value["gravity"] as? Int ?? Text.left
-        let color:String = value["color"] as? String ?? Text.color
+        let color:Int = value["color"] as? Int ?? Text.color
         let x:Int = value["x"] as? Int ?? Text.horPadding
         let y:Int = value["y"] as? Int ?? Text.verPadding
         let text:Text = Text(label: label, sizeText: size, textAlign: textAlign, garvity: gravity, colorText: color, horPadding: x, verPadding: y)

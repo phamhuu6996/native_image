@@ -31,14 +31,14 @@ class _MyAppState extends State<MyApp> {
     String pathModify;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      var response = await http.get('https://img.17qq.com/images/gqqwgqwsqky.jpeg');
+      var response = await http.get('https://9mobi.vn/cf/images/2015/03/nkk/hinh-dep-1.jpg');
       final documentDirectory = await getApplicationDocumentsDirectory();
 
       final file = File(documentDirectory.path +'/imagetest.png');
 
        file.writeAsBytesSync(response.bodyBytes);
 
-      pathModify =await NativeImage(path: file.path).editImage("pham van hữu \n tôi la ai \n anncn\n jks", 30);
+      pathModify =await NativeImage(path: file.path).editImageFile([EditTextData(label: "aajhahchskhk")]);
       imageCache.evict(FileImage(File(pathModify)));
 
     } on PlatformException {
