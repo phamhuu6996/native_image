@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const String channel = 'native_image';
-const String editImageMethod = 'edit_image_file';
+const String pathMethod = 'edit_image_file';
+const String memoryMethod = 'edit_image_memory';
 
 typedef CallMethod = Function(String method, Map<String, dynamic> mapData);
 
@@ -16,9 +17,13 @@ class NativeImage {
 
   NativeImage({this.path, this.memory});
 
-  Future<String> runFile(String method, Map<String, dynamic> mapData) async {
+  Future<T> run<T>(String method, List<Option> list) async {
+    if (path == null) return null;
+    List<Map<String, dynamic>> maps = list.map((e) {
+      return {'key': e.key, 'value': e.toJson()};
+    }).toList();
     try {
-      return await platform.invokeMethod<String>(method, mapData);
+      return await platform.invokeMethod<T>(method, {'result': maps, 'path': path});
     } catch (e) {
       if (e is PlatformException) print(e.message);
       return null;
@@ -26,21 +31,22 @@ class NativeImage {
   }
 
   Future<String> editImageFile(List<Option> list) async {
-    if (path == null) return null;
-    List<Map<String, dynamic>> maps = list.map((e) {
-      return {'key': e.key, 'value': e.toJson()};
-    }).toList();
-    return runFile(editImageMethod, {'result': maps, 'path': path});
+    return run<String>(pathMethod, list);
   }
 
   Future<Uint8List> editImageMemory(List<Option> list) async {
-    if (memory == null) return null;
-    return null;
+    return run<Uint8List>(memoryMethod, list);
   }
 
-   Future<String>  editImage(String label, int size) async {
-     if (path == null) return null;
-     return runFile(editImageMethod, {'result': [], 'path': path, "label":label, "size":size});
+  Future<String> editImage(String label, int size) async {
+    if (path == null) return null;
+    try {
+      return await platform
+          .invokeMethod<String>(pathMethod, {'result': [], 'path': path, "label": label, "size": size});
+    } catch (e) {
+      if (e is PlatformException) print(e.message);
+      return null;
+    }
   }
 }
 

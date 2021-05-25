@@ -62,7 +62,7 @@ public class NativeImagePlugin implements FlutterPlugin, MethodCallHandler {
                     editImageFile(result, convertUntil.getOptions(call), convertUntil.getPath(call));
                     break;
                 case EDIT_IMAGE_MEMORY:
-                    System.out.print("Edit memory");
+                    editImageMemory(result, convertUntil.getOptions(call), convertUntil.getPath(call));
                     break;
                 default:
                     break;
@@ -77,7 +77,16 @@ public class NativeImagePlugin implements FlutterPlugin, MethodCallHandler {
             Bitmap bitmap = ConvertUntil.instance.getBitMapPath(path);
             bitmap = new HandlerImp().handlerBitMap(options, bitmap);
             final String pathModify = Output.instance.getOutputFile(bitmap, path);
-            uiThreadHandler.post(()->result.success(pathModify));
+            uiThreadHandler.post(() -> result.success(pathModify));
+        } else throw new NoSuchFieldException();
+    }
+
+    private void editImageMemory(final MethodChannel.Result result, List<Option> options, String path) throws Throwable {
+        if (options != null) {
+            Bitmap bitmap = ConvertUntil.instance.getBitMapPath(path);
+            bitmap = new HandlerImp().handlerBitMap(options, bitmap);
+            final byte[] bytes = Output.instance.getOutputByte(bitmap);
+            uiThreadHandler.post(() -> result.success(bytes));
         } else throw new NoSuchFieldException();
     }
 
