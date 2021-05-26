@@ -7,11 +7,11 @@ public class Text implements Option {
     public final int size;
     public final Paint.Align textAlign;
     public final int gravity;
-    public final String color;
+    public final int color;
     public final int horPadding;
     public final int verPadding;
 
-    public Text(String label, int size, Paint.Align textAlign, int gravity, String color, int horPadding, int verPadding) {
+    public Text(String label, int size, Paint.Align textAlign, int gravity, int color, int horPadding, int verPadding) {
         this.label = label;
         this.size = size;
         this.textAlign = textAlign;

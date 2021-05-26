@@ -6,6 +6,6 @@ public interface Option {
       int RIGHT = 2;
       int SIZE = 30;
       int PADDING = 10;
-      String COLOR = "#FFFFFF";
+      int COLOR = 0xFFFFFFFF;
     
 }

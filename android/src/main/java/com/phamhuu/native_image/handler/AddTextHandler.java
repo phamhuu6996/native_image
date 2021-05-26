@@ -18,7 +18,7 @@ public class AddTextHandler extends HandlerImp {
 
     private Paint getTextPaint(Text text) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.WHITE);
+        paint.setColor(text.color);
         paint.setTextSize(text.size);
         paint.setShadowLayer(2f, 2f, 2f, Color.BLACK);
         paint.setTextAlign(text.textAlign);

@@ -53,7 +53,7 @@ public class ConvertUntil {
             int size = map.containsKey("size") ? (int) map.get("size") : Text.SIZE;
             Paint.Align textAlign = Text.setAlignText(map.containsKey("text_align") ? (int) map.get("text_align") : Text.RIGHT);
             int gravity = map.containsKey("gravity") ? (int) map.get("gravity") : Text.LEFT;
-            String color = map.containsKey("color") ? map.get("color").toString() : Text.COLOR;
+            int color = map.containsKey("color") ? (int) map.get("color"): Text.COLOR;
             int horPadding = map.containsKey("x") ? (int) map.get("x") : Text.PADDING;
             int verPadding = map.containsKey("y") ? (int) map.get("y") : Text.PADDING;
             return new Text(label, size, textAlign, gravity, color, horPadding, verPadding);
