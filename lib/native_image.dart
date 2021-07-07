@@ -63,7 +63,7 @@ class EditTextData extends Option {
   final int size;
   final int textAlign;
   final int gravity;
-  final String colorCode;
+  final int colorCode;
   final int horPadding;
   final int verPadding;
 

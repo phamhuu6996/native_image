@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Size;
 
 import com.phamhuu.native_image.option.Text;
@@ -18,10 +19,11 @@ public class AddTextHandler extends HandlerImp {
 
     private Paint getTextPaint(Text text) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.WHITE);
+        paint.setColor(text.color);
         paint.setTextSize(text.size);
         paint.setShadowLayer(2f, 2f, 2f, Color.BLACK);
         paint.setTextAlign(text.textAlign);
+        paint.setTypeface(Typeface.create("Arial", Typeface.BOLD));
         return paint;
     }
 
