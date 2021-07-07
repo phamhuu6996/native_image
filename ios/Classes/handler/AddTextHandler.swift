@@ -31,10 +31,7 @@ class AddTextHandler:HandlerImp{
     }
     
     public func textToImage(text: String, image: UIImage, point: CGPoint, attribute: [NSAttributedString.Key : Any]) -> UIImage {
-
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
-
+        UIGraphicsBeginImageContextWithOptions(image.size, false, 1)
         image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
 
         let rect = CGRect(origin: point, size: image.size)

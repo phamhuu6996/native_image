@@ -9,7 +9,7 @@ public class Output{
         }
     
     public func getOutputString(newImage:UIImage, path:String)->String{
-        if let dataImage = newImage.jpegData(compressionQuality: 1.0){
+        if let dataImage = newImage.jpegData(compressionQuality: 0.8){
             let url :URL! = URL(fileURLWithPath:path)
             try? dataImage.write(to: url)
             return path
