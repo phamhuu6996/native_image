@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/android.native_image.iml" filepath="$PROJECT_DIR$/android.native_image.iml" group="native_image" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/native_image.iml" filepath="$PROJECT_DIR$/.idea/modules/native_image.iml" />
     </modules>
   </component>

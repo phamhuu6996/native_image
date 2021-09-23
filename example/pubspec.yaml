@@ -6,14 +6,14 @@ description: Demonstrates how to use the native_image plugin.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  http: ^0.12.2
-  path_provider: ^1.6.28
+  http: ^0.13.3
+  path_provider: ^2.0.4
 
   native_image:
     # When depending on this package from a real application you should use:

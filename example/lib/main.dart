@@ -1,11 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:flutter/services.dart';
-import 'package:native_image/native_image.dart';
 import 'package:http/http.dart' as http;
+import 'package:native_image/native_image.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion;
+  String? _platformVersion;
 
   @override
   void initState() {
@@ -28,19 +27,19 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initEditImage() async {
-    String pathModify;
+    String? pathModify;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      var response = await http.get('https://9mobi.vn/cf/images/2015/03/nkk/hinh-dep-1.jpg');
+      var response = await http.get(Uri.parse('https://9mobi.vn/cf/images/2015/03/nkk/hinh-dep-1.jpg'));
       final documentDirectory = await getApplicationDocumentsDirectory();
 
-      final file = File(documentDirectory.path +'/imagetest.png');
+      final file = File(documentDirectory.path + '/imagetest.png');
 
-       file.writeAsBytesSync(response.bodyBytes);
+      file.writeAsBytesSync(response.bodyBytes);
 
-      pathModify =await NativeImage(path: file.path).editImageFile([EditTextData(label: "aajhahchskhk")]);
-      imageCache.evict(FileImage(File(pathModify)));
-
+      pathModify =
+          await NativeImage(path: file.path).editImageFile([RotateData(degree: 10), EditTextData(label: "Hello All!")]);
+      if (imageCache != null && pathModify != null) imageCache!.evict(FileImage(File(pathModify)));
     } on PlatformException {
       pathModify = 'Failed to get platform version.';
     }
@@ -59,12 +58,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Container(
-          child:_platformVersion!=null?Image.file(File(_platformVersion), width: 1000):CircularProgressIndicator())
-      ),
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: Container(
+              child: _platformVersion != null
+                  ? Image.file(File(_platformVersion!), width: 1000)
+                  : CircularProgressIndicator())),
     );
   }
 }
