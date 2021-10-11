@@ -74,6 +74,7 @@ public class NativeImagePlugin implements FlutterPlugin, MethodCallHandler {
 
     private void editImageFile(final MethodChannel.Result result, List<Option> options, String path) throws Throwable {
         if (options != null) {
+            ConvertUntil.instance.replaceRotateWithExif(ConvertUntil.instance.getDegreeExif(path), options);
             Bitmap bitmap = ConvertUntil.instance.getBitMapPath(path);
             bitmap = new HandlerImp().handlerBitMap(options, bitmap);
             final String pathModify = Output.instance.getOutputFile(bitmap, path);
@@ -83,6 +84,7 @@ public class NativeImagePlugin implements FlutterPlugin, MethodCallHandler {
 
     private void editImageMemory(final MethodChannel.Result result, List<Option> options, String path) throws Throwable {
         if (options != null) {
+            ConvertUntil.instance.replaceRotateWithExif(ConvertUntil.instance.getDegreeExif(path), options);
             Bitmap bitmap = ConvertUntil.instance.getBitMapPath(path);
             bitmap = new HandlerImp().handlerBitMap(options, bitmap);
             final byte[] bytes = Output.instance.getOutputByte(bitmap);

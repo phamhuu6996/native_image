@@ -3,11 +3,13 @@ package com.phamhuu.native_image;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.media.ExifInterface;
 
 import com.phamhuu.native_image.option.Option;
 import com.phamhuu.native_image.option.Rotate;
 import com.phamhuu.native_image.option.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +74,44 @@ public class ConvertUntil {
         BitmapFactory.Options option = new BitmapFactory.Options();
         option.inMutable = true;
         return BitmapFactory.decodeFile(path, option);
+    }
+
+    public float getDegreeExif(String path) throws Throwable {
+        float degree = 0;
+        ExifInterface exifInterface = null;
+        try {
+            exifInterface = new ExifInterface(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        switch (exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1)) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                degree = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                degree = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                degree = 270;
+                break;
+        }
+        return degree;
+    }
+
+    public void replaceRotateWithExif(float degreeExif , List<Option> options){
+        boolean isReplace = false;
+        for(int i = 0 ; i<options.size(); i++){
+            if(options.get(i) instanceof Rotate){
+               Rotate rotateReplace =new Rotate((((Rotate) options.get(i)).degree)+ degreeExif);
+                options.set(i,rotateReplace);
+                isReplace = true;
+                break;
+            }
+        }
+        if(!isReplace){
+            options.add(0,new Rotate(degreeExif));
+        }
     }
 }
 
